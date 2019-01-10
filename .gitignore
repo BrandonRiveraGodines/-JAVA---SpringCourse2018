@@ -1,1 +1,8 @@
-/.metadata/
+/*
+!/cineapp
+/cineapp/*
+!/cineapp/src
+/cineapp/src/*
+!/cineapp/src/main
+/cineapp/src/main/*
+!/cineapp/src/main/java
