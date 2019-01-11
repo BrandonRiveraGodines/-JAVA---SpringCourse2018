@@ -13,4 +13,7 @@ import net.brndnrg.app.model.Noticia;
 public interface NoticiasRepository extends JpaRepository<Noticia, Integer> {
 	List<Noticia> findByEstatus(String estatus);
 	List<Noticia> findByFecha(Date date);
+	List<Noticia> findByEstatusAndFecha(String estatus, Date date);
+	List<Noticia> findByEstatusOrFecha(String estatus, Date date);
+	List<Noticia> findByFechaBetween(Date fechaInicio, Date fechaFin);
 }
