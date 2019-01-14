@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +42,13 @@ public class PeliculasController {
 	@GetMapping("/index")
 	public String msotrarIndex(Model model) {
 		List<Pelicula> lista = servicePeliculas.buscarTodas();
+		model.addAttribute("peliculas", lista);
+		return "peliculas/listPeliculas";
+	}
+	
+	@GetMapping(value="/indexPaginate")
+	public String mostrarIndexPaginado(Model model, Pageable page) {
+		Page<Pelicula> lista = servicePeliculas.buscarTodas(page);
 		model.addAttribute("peliculas", lista);
 		return "peliculas/listPeliculas";
 	}
