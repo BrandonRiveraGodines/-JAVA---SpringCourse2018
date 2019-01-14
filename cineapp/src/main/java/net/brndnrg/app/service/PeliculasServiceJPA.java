@@ -2,12 +2,12 @@ package net.brndnrg.app.service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.brndnrg.app.model.Pelicula;
-import net.brndnrg.app.repository.DetallesRepository;
 import net.brndnrg.app.repository.PeliculasRepository;
 
 @Service
@@ -15,9 +15,6 @@ public class PeliculasServiceJPA implements IPeliculasService {
 
 	@Autowired
 	private PeliculasRepository peliculasRepo;
-	
-	@Autowired
-	private DetallesRepository detallesRepo;
 
 	@Override
 	public List<Pelicula> buscarTodas() {
@@ -26,13 +23,16 @@ public class PeliculasServiceJPA implements IPeliculasService {
 
 	@Override
 	public Pelicula buscarPorId(int idPelicula) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Pelicula> optionalPelicula = peliculasRepo.findById(idPelicula);
+		if (optionalPelicula.isPresent()) {
+			return optionalPelicula.get();
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public void insertar(Pelicula pelicula) {
-		detallesRepo.save(pelicula.getDetalle());
 		peliculasRepo.save(pelicula);
 	}
 
@@ -51,6 +51,11 @@ public class PeliculasServiceJPA implements IPeliculasService {
 		generos.add("Romantica");
 		generos.add("Ciencia Ficción");
 		return generos;
+	}
+
+	@Override
+	public void eliminar(int idPelicula) {
+		peliculasRepo.deleteById(idPelicula);
 	}
 
 }

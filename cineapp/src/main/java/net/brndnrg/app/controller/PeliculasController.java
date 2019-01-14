@@ -15,6 +15,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,12 +23,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.brndnrg.app.model.Pelicula;
+import net.brndnrg.app.service.IDetallesService;
 import net.brndnrg.app.service.IPeliculasService;
 import net.brndnrg.app.util.Utileria;
 
 @Controller
 @RequestMapping("/peliculas")
 public class PeliculasController {
+	
+	@Autowired
+	private IDetallesService serviceDetalles;
 	
 	@Autowired
 	private IPeliculasService servicePeliculas;
@@ -41,7 +46,6 @@ public class PeliculasController {
 	
 	@GetMapping("/create")
 	public String crear(@ModelAttribute Pelicula pelicula, Model model) {
-		model.addAttribute("generos", servicePeliculas.buscarGeneros());
 		return "peliculas/formPelicula";
 	}
 	
@@ -58,10 +62,32 @@ public class PeliculasController {
 		}
 		System.out.println("Se guardó la pelicula" + pelicula);
 		System.out.println("Elementos en la lsita antes de la isnercion " + servicePeliculas.buscarTodas().size());
+		serviceDetalles.insertar(pelicula.getDetalle());
 		servicePeliculas.insertar(pelicula);
 		System.out.println("Elementos en la lista después de la inserción " + servicePeliculas.buscarTodas().size());
 		attributes.addFlashAttribute("mensaje", "El registro fue guardado");
 		return "redirect:/peliculas/index";
+	}
+	
+	@GetMapping(value="/edit/{id}")
+	private String editar(@PathVariable("id") int idPelicula, Model model) {
+		Pelicula pelicula = servicePeliculas.buscarPorId(idPelicula);
+		model.addAttribute("pelicula", pelicula);
+		return "peliculas/formPelicula";
+	}
+	
+	@GetMapping(value="/delete/{id}")
+	private String eliminar(@PathVariable("id") int idPelicula, RedirectAttributes attributes) {
+		Pelicula pelicula = servicePeliculas.buscarPorId(idPelicula);
+		servicePeliculas.eliminar(idPelicula);
+		serviceDetalles.eliminar(pelicula.getDetalle().getId());
+		attributes.addFlashAttribute("mensaje", "La pelicula fue eliminada exitosamente");
+		return "redirect:/peliculas/index";
+	}
+	
+	@ModelAttribute("generos")
+	public List<String> getGeneros(){
+		return servicePeliculas.buscarGeneros();
 	}
 
 	@InitBinder
