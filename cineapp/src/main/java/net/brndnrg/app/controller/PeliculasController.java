@@ -56,7 +56,6 @@ public class PeliculasController {
 			String nombreImagen = Utileria.guardarImagen(multipart, request);
 			pelicula.setImagen(nombreImagen);
 		}
-		
 		System.out.println("Se guardó la pelicula" + pelicula);
 		System.out.println("Elementos en la lsita antes de la isnercion " + servicePeliculas.buscarTodas().size());
 		servicePeliculas.insertar(pelicula);
