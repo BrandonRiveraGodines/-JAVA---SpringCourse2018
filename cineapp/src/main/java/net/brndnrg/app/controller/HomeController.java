@@ -73,11 +73,6 @@ public class HomeController {
 		return "detalle";
 	}
 	
-	@RequestMapping(value="/about")
-	public String mostrarAcerca() {
-		return "acerca";
-	}
-	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
