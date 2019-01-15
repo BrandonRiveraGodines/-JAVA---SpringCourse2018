@@ -14,7 +14,7 @@ public class AppGetHorariosPelicula {
 		PeliculasRepository repo = context.getBean("peliculasRepository", PeliculasRepository.class);
 		Optional<Pelicula> optional = repo.findById(7);
 		if(optional.isPresent()) {
-			System.out.println(optional.get().getHorarios().size());
+			//System.out.println(optional.get().getHorarios().size());
 		}
 		context.close();
 

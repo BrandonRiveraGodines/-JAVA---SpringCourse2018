@@ -1,15 +1,12 @@
 package net.brndnrg.app.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,16 +29,18 @@ public class Pelicula {
 	@JoinColumn(name = "idDetalle")
 	private Detalle detalle;
 
-	@OneToMany(mappedBy="pelicula", fetch=FetchType.EAGER)
-	private List<Horario> horarios;
+//	@OneToMany(mappedBy="pelicula", fetch=FetchType.EAGER)
+//	private List<Horario> horarios;
+	
+	public Pelicula() {}
 
-	public List<Horario> getHorarios() {
-		return horarios;
-	}
-
-	public void setHorarios(List<Horario> horarios) {
-		this.horarios = horarios;
-	}
+//	public List<Horario> getHorarios() {
+//		return horarios;
+//	}
+//
+//	public void setHorarios(List<Horario> horarios) {
+//		this.horarios = horarios;
+//	}
 
 	public Detalle getDetalle() {
 		return detalle;
@@ -119,7 +118,7 @@ public class Pelicula {
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", clasificacion="
 				+ clasificacion + ", genero=" + genero + ", imagen=" + imagen + ", fechaEstreno=" + fechaEstreno
-				+ ", estatus=" + estatus + ", detalle=" + detalle + ", horarios=" + horarios + "]";
+				+ ", estatus=" + estatus + ", detalle=" + detalle + "]";
 	}
 
 }

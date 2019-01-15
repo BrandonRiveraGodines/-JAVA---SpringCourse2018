@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="horarios")
 public class Horario {
@@ -17,6 +19,7 @@ public class Horario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date fecha;
 	private String hora;
 	private String sala;

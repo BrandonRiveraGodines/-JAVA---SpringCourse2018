@@ -54,12 +54,12 @@ public class PeliculasController {
 	}
 	
 	@GetMapping("/create")
-	public String crear(@ModelAttribute Pelicula pelicula, Model model) {
+	public String crear(@ModelAttribute Pelicula pelicula) {
 		return "peliculas/formPelicula";
 	}
 	
 	@PostMapping("/save")
-	public String guardar(@ModelAttribute Pelicula pelicula, BindingResult result, RedirectAttributes attributes, @RequestParam("archivoImagen") MultipartFile multipart, HttpServletRequest request) {
+	public String guardar(@ModelAttribute Pelicula pelicula, BindingResult result, Model model, RedirectAttributes attributes, @RequestParam("archivoImagen") MultipartFile multipart, HttpServletRequest request) {
 		if(result.hasErrors()) {
 			System.out.println("Exisistieron errores " + result.getAllErrors());
 			return "peliculas/formPelicula";
@@ -67,15 +67,14 @@ public class PeliculasController {
 		
 		if(!multipart.isEmpty()) {
 			String nombreImagen = Utileria.guardarImagen(multipart, request);
-			pelicula.setImagen(nombreImagen);
+			if(nombreImagen != null) {
+				pelicula.setImagen(nombreImagen);
+			}
 		}
-		System.out.println("Se guardó la pelicula" + pelicula);
-		System.out.println("Elementos en la lsita antes de la isnercion " + servicePeliculas.buscarTodas().size());
 		serviceDetalles.insertar(pelicula.getDetalle());
 		servicePeliculas.insertar(pelicula);
-		System.out.println("Elementos en la lista después de la inserción " + servicePeliculas.buscarTodas().size());
 		attributes.addFlashAttribute("mensaje", "El registro fue guardado");
-		return "redirect:/peliculas/index";
+		return "redirect:/peliculas/indexPaginate";
 	}
 	
 	@GetMapping(value="/edit/{id}")
@@ -91,7 +90,7 @@ public class PeliculasController {
 		servicePeliculas.eliminar(idPelicula);
 		serviceDetalles.eliminar(pelicula.getDetalle().getId());
 		attributes.addFlashAttribute("mensaje", "La pelicula fue eliminada exitosamente");
-		return "redirect:/peliculas/index";
+		return "redirect:/peliculas/indexPaginate";
 	}
 	
 	@ModelAttribute("generos")
@@ -102,7 +101,7 @@ public class PeliculasController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
 	
