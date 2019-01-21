@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//webapp/WEB-INF/views/acerca.jsp=UTF-8
+encoding//webapp/WEB-INF/views/banners/formBanner.jsp=UTF-8
+encoding//webapp/WEB-INF/views/banners/listBanner.jsp=UTF-8
+encoding//webapp/WEB-INF/views/error/400.jsp=UTF-8
+encoding//webapp/WEB-INF/views/error/404.jsp=UTF-8
+encoding//webapp/WEB-INF/views/error/500.jsp=UTF-8
+encoding//webapp/WEB-INF/views/horarios/listHorarios.jsp=UTF-8
+encoding//webapp/WEB-INF/views/noticias/formNoticia.jsp=UTF-8
+encoding//webapp/WEB-INF/views/noticias/listNoticias.jsp=UTF-8

@@ -1,0 +1,5 @@
+package net.brndnrg.app.model;
+
+public class Usuario {
+
+}

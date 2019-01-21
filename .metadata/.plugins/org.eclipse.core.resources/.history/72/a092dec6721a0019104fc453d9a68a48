@@ -1,0 +1,13 @@
+package net.brndnrg.app.service;
+
+import net.brndnrg.app.model.Usuario;
+
+public class UsuariosServiceJPA implements IUsuariosService {
+
+	@Override
+	public void guardar(Usuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

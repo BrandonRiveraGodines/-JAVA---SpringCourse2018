@@ -1,0 +1,43 @@
+package net.brndnrg.app.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import net.brndnrg.app.model.Usuario;
+
+@Controller
+@RequestMapping("/usuarios")
+public class UsuariosController {
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
+	@GetMapping(value="/create")
+	public String crear(@ModelAttribute Usuario usuario) {
+		return "usuarios/formUsuario";
+	}
+	
+	@GetMapping(value="/index")
+	public String index() {
+		return "usuarios/listUsuarios";
+	}
+	
+	@PostMapping(value="/save")
+	public String guardar(@ModelAttribute Usuario usuario) {
+		System.out.println("Usuario: ".concat(usuario.toString()));
+		return "redirect:/usuarios/index";
+	}
+	
+	@GetMapping("/demo-bcrypt")
+	public String pruebaBcrypt() {
+		String password = "mari123";
+		String encriptado = encoder.encode(password);
+		System.out.println("Password encriptador: ".concat(encriptado));
+		return "usuarios/demo";
+	}
+}

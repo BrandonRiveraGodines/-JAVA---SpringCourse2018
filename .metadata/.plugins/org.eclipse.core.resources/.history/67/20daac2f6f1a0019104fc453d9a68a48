@@ -1,0 +1,21 @@
+package net.brndnrg.app.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/usuarios")
+public class UsuariosController {
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
+	public String pruebaBcrypt() {
+		String password = "mari123";
+		String encriptado = encoder.encode(password);
+		System.out.println("Password encriptador: ".concat(encriptado));
+		return "usuarios/demo";
+	}
+}

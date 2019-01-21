@@ -1,0 +1,5 @@
+package net.brndnrg.app.controller;
+
+public class LoginController {
+
+}

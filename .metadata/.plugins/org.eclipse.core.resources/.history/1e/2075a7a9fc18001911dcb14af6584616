@@ -1,0 +1,43 @@
+package net.brndnrg.app.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import net.brndnrg.app.model.Banner;
+import net.brndnrg.app.repository.BannersRepository;
+
+public class BannersServiceJPA implements IBannersService {
+
+	@Autowired
+	private BannersRepository bannersRepo;
+	
+	@Override
+	public void insertar(Banner banner) {
+		bannersRepo.save(banner);
+	}
+
+	@Override
+	public List<Banner> buscarTodos() {
+		return bannersRepo.findAll();
+	}
+
+	@Override
+	public List<Banner> buscarActivos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void eliminar(int idBanner) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Banner buscarPorId(int idBanner) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
